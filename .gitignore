@@ -1,2 +1,3 @@
-cryptd
+bin/
+tests.xml
 vet.report
