@@ -58,6 +58,6 @@ fmt:
 clean:
 	-rm -f ${TEST_REPORT}
 	-rm -f ${VET_REPORT}
-	-rm -f ${BINARY}-*
+	-rm -f ${BUILD_SUBDIR}/${BINARY}-*
 
 .PHONY: link linux darwin windows test vet fmt clean
