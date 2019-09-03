@@ -12,7 +12,8 @@ BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 
 # Symlink into GOPATH
 GITHUB_USERNAME=spindlyskit
-BUILD_DIR=${GOPATH}/src/github.com/${GITHUB_USERNAME}/${BINARY}
+MAKEFILE_PATH=$(abspath $(lastword $(MAKEFILE_LIST)))
+BUILD_DIR=$(dir $(MAKEFILE_PATH))
 BUILD_SUBDIR=bin
 CURRENT_DIR=$(shell pwd)
 BUILD_DIR_LINK=$(shell readlink ${BUILD_DIR})
@@ -21,17 +22,7 @@ BUILD_DIR_LINK=$(shell readlink ${BUILD_DIR})
 LDFLAGS = -ldflags "-X main.VERSION=${VERSION} -X main.COMMIT=${COMMIT} -X main.BRANCH=${BRANCH}"
 
 # Build the project
-all: link clean test vet linux darwin windows
-
-link:
-	BUILD_DIR=${BUILD_DIR}; \
-	BUILD_DIR_LINK=${BUILD_DIR_LINK}; \
-	CURRENT_DIR=${CURRENT_DIR}; \
-	if [ "$${BUILD_DIR_LINK}" != "$${CURRENT_DIR}" ]; then \
-	    echo "Fixing symlinks for build"; \
-	    rm -f $${BUILD_DIR}; \
-	    ln -s $${CURRENT_DIR} $${BUILD_DIR}; \
-	fi
+all: clean test vet linux darwin windows
 
 linux:
 	cd ${BUILD_DIR}; \
