@@ -7,7 +7,7 @@ import (
 
 func main() {
 	const (
-		portDefault     = 8080
+		portDefault     = 570
 		portDescription = "The port to listen on"
 	)
 	var portPtr int
