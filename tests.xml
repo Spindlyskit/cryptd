@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <testsuite name="github.com/spindlyskit/cryptd/crackers" tests="1" errors="0" failures="1" skip="0">
+  <testsuite name="github.com/spindlyskit/cryptd/crackers" tests="1" errors="0" failures="0" skip="0">
     <testcase classname="github.com/spindlyskit/cryptd/crackers" name="TestCaesar" time="0.00">
 
-      <failure type="go.error" message="error">
-        <![CDATA[    crackers_test.go:63: caesar - Crack: expected used key to be 20 but got Pm ol ohk hufaopun jvumpkluaphs av zhf, ol dyval pa pu jpwoly, aoha pz, if zv johunpun aol vykly vm aol slaalyz vm aol hswohila, aoha uva h dvyk jvbsk il thkl vba.]]>
-      </failure>    </testcase>
+    </testcase>
   </testsuite>
