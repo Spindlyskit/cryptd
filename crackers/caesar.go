@@ -12,7 +12,7 @@ type CaesarCracker struct {
 	Scorer scorer.TextScorer
 }
 
-// Crack a caesar cipher without a key
+// Crack cracks a caesar cipher without a key
 func (cracker *CaesarCracker) Crack(ct []byte) ([]byte, string, error) {
 	decoded := []byte{}
 	var usedKey byte
