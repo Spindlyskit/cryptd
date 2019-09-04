@@ -94,11 +94,8 @@ func LoadQuadgrams(path string) [quadgramLength]float64 {
 	return quadgrams
 }
 
-// QuadgramScore guesses how likely a text is to be english based on its quadgrams
-// a higher score is better
-func (s *TextScorer) QuadgramScore(str string) float64 {
-	log.Tracef("Quadgram scoring %s\n", str)
-	fitness := 0.0
+// normalize makes a string uppercase and removes non alphabetic characters
+func (s *TextScorer) normalize(str string) string {
 	str = strings.ToUpper(str)
 	// TODO Move this regex to a property on the TextScorer struct
 	reg, err := regexp.Compile("[^A-Z]+")
@@ -106,6 +103,31 @@ func (s *TextScorer) QuadgramScore(str string) float64 {
 		log.Fatalf("Error compiling regex: %s", err)
 	}
 	str = reg.ReplaceAllString(str, "")
+	return str
+}
+
+// MonogramScore guesses how likely a text is to be english based on its monograms
+// a higher score is better
+func (s *TextScorer) MonogramScore(str string) float64 {
+	log.Tracef("Monogram scoring %s\n", str)
+	fitness := 0.0
+
+	str = s.normalize(str)
+
+	for i := 1; i < len(str)-3; i++ {
+		fitness += s.Monograms[offset([]byte(str), i, 1)]
+	}
+
+	return fitness
+}
+
+// QuadgramScore guesses how likely a text is to be english based on its quadgrams
+// a higher score is better
+func (s *TextScorer) QuadgramScore(str string) float64 {
+	log.Tracef("Quadgram scoring %s\n", str)
+	fitness := 0.0
+
+	str = s.normalize(str)
 
 	for i := 1; i < len(str)-3; i++ {
 		fitness += s.Quadgrams[offset([]byte(str), i, 4)]
