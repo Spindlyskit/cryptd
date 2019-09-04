@@ -2,7 +2,9 @@ package main
 
 import (
 	"math"
+	"math/rand"
 	"os"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
@@ -34,6 +36,10 @@ func main() {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("Using verbose logging")
 	}
+
+	// Seed the randomizer with the current time
+	// This isn't secure but this doesn't matter for the use case
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	log.Infoln("cryptd rpc server starting on port", *port)
 
